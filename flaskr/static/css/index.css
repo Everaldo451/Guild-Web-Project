@@ -44,6 +44,7 @@ main > div {
 }
 
 main p {
+    font-size: clamp(12px,calc(12px + 0.5vw),20px);
     text-indent: 50px;
     text-align: justify;
     text-justify:auto;
@@ -72,7 +73,7 @@ main p {
     & .content {
         margin-top: 10px;
         & p:first-child {margin-top: 0;}
-        & p {font-size: 12px; text-indent: 20px;}
+        & p {font-size:clamp(12px,calc(12px + 0.5vw),15px); text-indent: 20px;}
     }
     & img{width: 80%;aspect-ratio: 1/1; border-radius: 50%;}
 }
@@ -222,23 +223,12 @@ hr {
 
 
 
-.atributes > div:nth-child(even){
-    & h2 {text-align: right;}
+.atributes >div >div img{
+  /*  & h2 {text-align: right;}
     & > div {flex-direction: row-reverse;
         align-items: flex-start;
         margin-top: 30px;
-        & div{display: inline-block;width: 60%;margin-right: auto;margin-top: 0;}
-        & img {align-self: center;margin-top: 0;width: 35%;align-self: stretch;border-radius: 0;}
-    }
-}
-
-.atributes .magic, .atributes .healthy {
-    & h2 {text-align: left;}
-    & > div {flex-direction: row;
-        align-items: flex-start;
-        margin-top: 30px;
-        & div{display: inline-block;width: 60%;margin-left: auto;margin-top: 0;}
-        & img {align-self: center;margin-top: 0;width: 35%; align-self: stretch;border-radius: 0;}
-    }
+        & div{display: inline-block;width: 60%;margin-right: auto;margin-top: 0;}*/
+        width: 150px
 }}
 
