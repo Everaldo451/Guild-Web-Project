@@ -27,7 +27,7 @@ header .container_image .text{
     left: 5%;
     color: black;
     width: 32%;
-    & h2 {font-size: 3vw;}
+    & h2 {font-size: clamp(18px,3vw,30px);}
     & p {margin: 0;display: none;}
 }
 
@@ -40,7 +40,7 @@ main {
 }
 
 main > div {
-    margin: 0 5%;
+    margin: 0 clamp(20px,calc(5vw),50px);
 }
 
 main p {
@@ -127,7 +127,7 @@ main p {
 /*Header Image Container*/
 
 header .container_image{
-    height: 500px;
+    height: calc(60vh - 51px);
 }
 
 header .container_image .text h2{
@@ -161,10 +161,6 @@ header .container_image .text{
 
 /*Main*/
 
-
-main > div {
-    margin: 0 20px;
-}
 
 main p {
     text-indent: 20px;
