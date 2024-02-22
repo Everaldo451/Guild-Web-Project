@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Não encontrado</title>
+    <style>
+        *{box-sizing:border-box}
+        html{
+            height:100%
+        }
+        body{
+            margin:0;
+            display:grid;
+            place-items:center;
+            background-color:rgb(124, 79, 124);
+            height:100%
+        }
+        main{
+            width:80%;
+            background-color:white;
+            border-radius:10px;
+            padding:20px
+        }
+        h1{text-align:center; margin:0}
+        p{text-align:center}
+        input{
+            margin-top: 10px;
+            margin-right:10px
+            outline: none; 
+            border: none;
+            background-color: rgb(211, 194, 211);
+            padding: 10px;
+            border-radius: 3px;
+        }
+        form{
+            display: flex;
+            justify-content:center
+        }
+        form input[type="submit"]:hover{
+            cursor: pointer;
+            background-color: rgb(182, 182, 182);
+        }
+        form input[type="submit"]{
+            margin-left: 20px;
+            background-color: rgb(219, 218, 218);
+            border-radius: 3px;
+        }
+
+        @media screen and (max-width:400px){
+            form {
+                flex-direction:column;
+                align-items:center;
+                & input[type='submit']{
+                    margin-left:0
+                }
+            }
+            h1{font-size:22px}
+            p{font-size:15px}
+        }
+    </style>    
+    <script>
+        console.log(window.location.href)
+    </script>
+    <head>
+    <body>
+        <main>
+            <h1>Página não reconhecida</h1>
+            <p>Por favor, digite outro endereço abaixo. A url digitada não oi reconhecida.
+            <form method="GET" autocomplete="off">
+                <input type="text" name="url">
+                <input type="submit">
+            </form>
+        </main>    
+    </body>
+</html>    
+

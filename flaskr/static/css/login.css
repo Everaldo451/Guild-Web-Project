@@ -1,0 +1,228 @@
+*{
+    box-sizing: border-box;
+}
+
+html,body{background-color: rgb(124, 79, 124);}
+
+main {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0 0 0 0;
+}
+
+.main {
+    display: flex;
+    background-color: white;
+    margin: 0;
+    padding: 5px;
+}
+
+.cadastro {
+    max-width: calc(200%/3);
+    flex-grow: 2;
+    align-self: stretch;
+    
+    padding: 10px;
+
+    & p{
+        visibility: hidden;
+        color:red;
+        font-size:13px;
+        margin-bottom: 0;
+        min-height: 13px;
+    }
+    
+    & form {
+        /*display: flex;
+        flex-direction: column;*/
+         height: auto;
+         border-radius: 10px;
+         box-shadow: 0 0 15px black;
+        padding: 20px;
+        & input{width: 100%;}
+        & input[type="submit"]{width: auto;margin-left: auto;margin-right: auto;display: block;}
+        /*animation inite*/
+        & #input{margin-top: 10px;position: relative;z-index: 2;}
+        & #input::after{
+            content: "";
+            position: absolute;
+            background-color: black;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            z-index: -1;
+        }
+        & #input::before{
+            content: "";
+            position: absolute;
+            background-color: white;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            top:-2px
+        }
+        /*animation inite*/
+        /*animation*/
+        & .animinput1::after{
+            content: "";
+            animation-name: inputafter;
+            animation-duration: 0.6s;
+            animation-fill-mode: forwards;
+        }
+        & .animinput1::before{
+            content: "";
+            animation-name:inputbefore;
+            animation-duration: 0.4s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.6s;
+        }
+        /*animation end*/
+        
+        & legend {font-size: 20px;}
+        & textarea {
+            padding: 10px;
+            display: inline-block;
+            background-color: white;
+            margin:0;
+            resize: none;
+            margin-top: 10px; 
+            width: 100%;
+            height: 100px;
+            outline: none;
+           
+        }
+    }
+}
+
+.login {
+    position: relative;
+    max-width: calc(100%/3);
+    flex-grow: 1;
+    align-self: stretch;
+    & p{
+        position: relative;
+        transform: translate(calc((-1/6)*100%),0);
+        color:red;
+        font-size:13px;
+        margin-bottom: 0;
+        width: 150%;
+        text-align: center;
+        word-wrap: break-word;
+        margin-left:auto;
+        margin-right: auto;
+    }
+    & form {
+        position: absolute;
+        width: 50%;
+        left: 50%;
+        top: 50%;
+        margin: 0;
+        transform: translate(-50%,-50%);
+        & legend {font-size: 20px;text-align: center;}
+        & input[type="submit"] {
+            margin-top: 20px;
+        }
+        & input{
+            display: block;
+            margin-left:auto;
+            margin-right: auto;
+            margin-top: 0;
+        }
+        /*animation inite*/
+        & #input{margin-top: 10px;position: relative;}
+        & #input::after{
+            content: "";
+            position: absolute;
+            background-color: black;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            z-index: -1;
+        }
+        & #input::before{
+            content: "";
+            position: absolute;
+            background-color: white;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            top:-2px
+        }
+        /*animation inite*/
+        /*animation*/
+        & .animinput1::after{
+            content: "";
+            animation-name: inputafter;
+            animation-duration: 0.6s;
+            animation-fill-mode: forwards;
+        }
+        & .animinput1::before{
+            content: "";
+            animation-name:inputbefore;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.6s;
+        }
+        /*animation end*/
+
+        & input[type="password"], input[type="email"]{
+            width: 100%;
+        }
+        
+    }
+}
+
+form{
+    & input {
+        position: relative;
+        margin-top: 0;
+        outline: none;
+        border: none;
+        /*border-bottom: 1px solid black;*/
+        padding: 10px;
+        background-color: rgb(231, 228, 233);
+        color: gray;
+        transition: background-color 1s;
+    }
+    & input:focus {background-color: rgb(202, 184, 202) ;}
+        & input[type="submit"] {
+            border-radius: 5px;
+            background-color: rgb(80, 31, 126);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            align-self: center;}
+        & input[type="submit"]:hover {background-color: rgb(105, 79, 129) ;cursor: pointer;}
+}
+
+/*animation input*/
+
+@keyframes inputafter {
+    0% {height:2px;width: 0;left: 50%;}
+    30%{width: calc(100% + 4px);left: -2px;}
+    100% {height: calc(100% + 4px);width: calc(100% + 4px);left: -2px;}
+}
+
+@keyframes inputbefore{
+    from {width: 100%;left:0}
+    to {width: 0;left: 50%;}
+}
+
+@media screen and (max-height:700px) and (orientation:portrait){
+    main{padding: 50px 0;}
+}
+
+@media screen and (max-width:700px){
+    .main{
+        flex-direction: column;
+        & div {flex-grow:inherit;max-width: 100%;}
+    }
+    .login{display: grid;place-items: center; padding: 10px 0;}
+    .login form{position: static;transform: none;}
+
+}
+
+
+

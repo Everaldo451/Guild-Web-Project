@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{%if user%}StSyn - {{user.username}}{%else%}Usuário inválido{%endif%}</title>
+
+        <link rel="stylesheet" href="{{url_for('static',filename='css/comum.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/user.css')}}">
+    </head>
+    <body>
+        <iframe id="headeriframe" style="display: none;" src="/menu.html"></iframe>
+        <div class="wraper">
+            <header></header>
+            {%if user%}
+            <div class="pag">
+                <div class="informs">
+                    <div class="user">
+                        <img src="{{url_for('static',filename='imagens/semimagem.png')}}">
+                        <h2>{{user.username}}</h2>
+                    </div>
+                    {%if usuario and usuario.username == user.username%}
+                    <button style="padding:10px">Postar</button>
+                    <form method="POST">
+                        <label for="title">Título</label>
+                        <input type="text" name="title" id="title" style="margin-bottom:10px">
+                        <label for="desc">Descrição</label>
+                        <textarea name='desc' id="desc" style="margin-bottom:10px"></textarea>
+                        <label for="content">Arquivos</label>
+                        <input type="file" value="Escolher" name="content" id="content" accept="image/*,video/*" style="margin-top:0" multiple> 
+                        <input type="submit" value="Enviar">
+                        <input type="button" value="Cancelar">
+                    </form>
+                    {%else%}
+                    <h1>tchau</h1>
+                    {%endif%}
+                </div>
+                <div class="posts">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>
+                </div>        
+            </div>
+            {%else%}
+            <h1>Sem usuario
+            {%endif%}
+        </div>
+        <script src="{{url_for('static',filename="js/script.js")}}"></script>
+    </body>    
+</html>

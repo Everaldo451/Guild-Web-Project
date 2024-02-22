@@ -1,0 +1,101 @@
+
+
+.pag{
+    margin: 20px 0;
+    height: calc(100vh - 91px);
+    padding: 0 50px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(1,1fr);
+    gap: 10px;
+    & > div{
+        background-color: white;
+        box-shadow: 0 0 10px black;
+        border-radius: 30px;
+        & > * {
+            margin: 0 20px;
+        }
+
+        & > *:first-child{
+            margin-top:20px
+        }
+
+        & > *:last-child {
+            margin-bottom: 20px;
+        }
+    }
+    & > div::-webkit-scrollbar{
+        display: none;
+    }
+}
+
+/*PESSOAL*/
+
+img{
+    border-radius: 50%;
+    width: 50px;
+    aspect-ratio: 1/1;
+}
+.user{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.user h2{
+    margin-left: 10px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*POSTS*/
+
+.posts {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    overflow: auto;
+    & > div{
+        background-color: grey;
+        border-radius: inherit;
+        height: 200px;
+        margin: 20px 20px 0 20px;
+    }
+}
+.informs{overflow: auto;}
+.informs form > * {
+    margin-top: 10px;
+}
+.informs textarea{
+    resize: none;       
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+}
+.informs form input{
+    
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+.informs form label{
+    text-align: center;
+}
+
+
+/*MEDIA QUERIES*/
+@media screen and (max-width:900px) {
+    .pag{
+        padding: 0 20px;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: repeat(3,1fr);
+        & > div:last-child{display: none;}
+    }
+
+    .posts{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 4;
+    }
+}

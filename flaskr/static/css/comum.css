@@ -1,0 +1,163 @@
+*{
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+body,html {height: 100%;}
+html{background-color: white;}
+body{margin: 0;
+    padding: 0;
+    padding-top: 51px;
+}
+
+.wraper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+
+/*Navigation*/
+
+nav {
+   position:fixed;
+    width: 100%;
+    top: 0;
+    z-index: 3;
+}
+
+.nav img{
+    height: 48px;
+    width: auto;
+    margin-right: 20px;
+}
+
+.profile:hover{
+    cursor: pointer;
+}
+
+.profile:hover::after{transform: rotate(-180deg);}
+
+.profile::after{
+    content: ">";
+    color:white;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 25px;
+    font-family:'Courier New', Courier, monospace;
+    display: inline-block;
+    writing-mode:vertical-rl;
+    margin-bottom: auto;
+    margin-top: auto;
+    transition: transform 0.5s;
+}
+
+.profile{
+    margin-left:auto;
+    position: relative;
+    display: flex;
+    & img{
+        border-radius: 50%;
+        margin-right: 0;
+    }
+    & .options {
+        display: none;
+    }
+}
+
+.profile:hover .options{
+    position: absolute;
+    top:100%;
+    right: 0;
+    display: block;
+    & a{display: block;
+        background-color: rgb(49, 49, 49);
+    }
+    & a:hover{background-color: cadetblue;}
+    & a:last-child{border-radius: 0 0 5px 5px;}
+}
+
+#login{
+    margin-left: auto;
+    background-color: blueviolet;
+}
+#login:hover {
+    background-color: rgb(149, 90, 204);
+}
+
+.nav {
+    background-color: black;
+    display: flex;
+    padding: 0 30px;
+    position: relative;
+}
+
+.nav a{
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+.nav a:hover {background-color: cadetblue;}
+
+
+#menu {display: none;}
+
+
+
+.menu_and_links, .links_menu {
+    display: inline-block;
+}
+
+/*Main*/
+
+main {
+    padding: 30px 0;
+}
+
+/*Footer*/
+
+footer {
+    margin-top: auto;
+    width: 100%; 
+    height: 200px; 
+    background-color: black;
+    color: blueviolet;
+}
+
+
+@media screen and (max-width:550px) {
+
+    /*Navigation*/
+    .nav{padding: 0 2px;}
+    
+    #menu{display: inline-block;}
+    
+    .menu_and_links{position: relative;}
+    
+    .links_menu{display: none;position: absolute; background-color: rgb(80, 79, 79);}
+    
+    .menu_and_links:hover .links_menu{display: block;}
+    
+    .links_menu a{display: block;background-color: rgb(56, 56, 56);margin: 0;}
+    .links_menu a:hover{background-color: rgb(153, 194, 194);}
+    
+    
+    .nav img{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,0);
+        height: 100%;
+        width: auto;
+        margin: 0;
+    }}
+
+    @media screen and (max-width:700px){
+
+        /*Main*/
+        
+        main {
+            padding: 10px 0;
+        }}

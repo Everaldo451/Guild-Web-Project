@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Login - The Storm S</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='css/comum.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+
+    {%if usuario%}
+    <style>
+        .main{
+            height: 500px;
+            display: block;
+            & h2{
+                text-align: center;
+                display: block; 
+                font-size: 30px;       
+            }
+            & p {
+                display: block;
+                text-align: center;
+                font-size: 20px;
+                padding: 0 250px;
+            }
+        }
+    </style>
+    {%endif%}
+
+    </head>
+    <body>
+        <iframe id="headeriframe" style="display: none;" src="/menu.html"></iframe>
+    <div class="wraper">
+        <header></header>
+        
+        <main>
+            <div class="main">
+                {%if not usuario%}
+                <div class="login">
+                    <form id="login1" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
+                        
+                        <legend>Login</legend>
+                        <div id="input"><input type="email" placeholder="Digite seu email" name="email" required></div>
+                        <div id="input"><input type="password" placeholder="Digite sua senha" name="senha" required></div>
+                        <p>{%with message = get_flashed_messages() %}{%if message%}{{message[0]}}{%endif%}{% endwith %}</p>
+                        <input type="submit" value="Entrar">
+                        
+                    </form>
+                </div>
+
+                <div class="cadastro">
+
+                        <form method="POST" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                            
+                            <legend>Cadastro</legend>
+                            <div id="input"><input type='text' placeholder="Digite seu username" name="username" required></div>
+                            <div id="input"><input type="text" placeholder="Digite seu nome" name="nome" required></div>
+                            <div id="input"><input type="text" placeholder="Digite seu sobrenome" name="sobrenome" required></div>
+                            <div id="input"><input type="email" placeholder="Digite um email" name="email" required></div>
+                            <div id="input"><input type="password" placeholder="Digite uma senha" name="senha" required></div>
+                            <textarea placeholder="Digite sua bio" name="bio"></textarea>
+                            <p></p>
+                            
+                            <input type="submit">
+                            
+                        </form>
+                    
+
+                </div>
+                {%else%}
+                    <h2 id="logged">You're logged</h2>
+                    <p id="message">Desculpa, mas atualmente você já está logado na plataforma. Caso deseje entrar em outra conta, é necessário sair de sua conta atual.</p>
+                {% endif%}
+            </div>
+        </main>
+    </div>  
+
+        <!--SCRIPT-->
+        <script src="{{url_for('static',filename="js/login.js")}}"></script>
+        <script src="{{url_for('static',filename="js/script.js")}}"></script>
+    </body>
+</html>

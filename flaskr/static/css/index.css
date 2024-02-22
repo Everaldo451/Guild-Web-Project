@@ -1,0 +1,244 @@
+*{
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
+
+/*Navigation*/
+
+/*Header Container Image*/
+
+header .container_image {
+    z-index: 1;
+    width: 100%;
+    position: relative;
+    height: calc(100vh - 51px);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+header .container_image .text{
+    position: absolute;
+    margin: 0;
+    top: 40%;
+    transform: translate(0,-40%);
+    left: 5%;
+    color: black;
+    width: 32%;
+    & h2 {font-size: 3vw;}
+    & p {margin: 0;display: none;}
+}
+
+/*Main*/
+
+main {
+    box-shadow: 0 -15px 15px black;
+    position: relative;
+    z-index: 2;
+}
+
+main > div {
+    margin: 0 5%;
+}
+
+main p {
+    text-indent: 50px;
+    text-align: justify;
+    text-justify:auto;
+    word-wrap: break-word;
+}
+
+/*Main Atributes Div*/
+
+#h2atrr{
+    text-align: center;
+     margin:0;
+     padding: 40px 0;
+}
+
+.atributes {
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows: auto;
+    gap:10px;
+}
+
+.atributes > div > div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    & .content {
+        margin-top: 10px;
+        & p:first-child {margin-top: 0;}
+        & p {font-size: 12px; text-indent: 20px;}
+    }
+    & img{width: 80%;aspect-ratio: 1/1; border-radius: 50%;}
+}
+
+.atributes > div {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px black;
+    padding: 10px;
+    & h2 {
+        text-align: center;
+        margin: 0;
+    }
+    & img {
+        align-self: center;
+        margin-top: 20px;
+    }
+}
+
+
+.atributes .magic {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.atributes .strength {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.atributes .healthy {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+.atributes .weapons {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+
+
+
+
+
+       @media screen and (max-width:550px) {
+
+/*Navigation*/
+
+
+/*Header Image Container*/
+
+header .container_image{
+    height: 500px;
+}
+
+header .container_image .text h2{
+    margin:0;
+    text-align: center;
+    font-size: 20px;
+}
+
+header .container_image .text{
+    position: absolute;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    background-color: rgb(245, 222, 179, 0.2);
+    border: 2px solid black;
+    backdrop-filter: blur(2px);
+
+    text-align: center;
+    font-size: 13px;
+    padding-bottom: 5px;
+    color: rgb(29, 14, 75);
+}}
+
+
+
+
+
+        @media screen and (max-width:700px){
+
+/*Main*/
+
+
+main > div {
+    margin: 0 20px;
+}
+
+main p {
+    text-indent: 20px;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+/*Atributes Div*/
+
+#h2atrr {
+    background-color: gray;
+}
+
+.atributes {
+    grid-auto-rows: auto;
+    grid-template-columns: 1fr;
+    gap: 0;
+    
+}
+
+.atributes .magic {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.atributes .strength {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.atributes .healthy {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.atributes .weapons {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.atributes > div {
+    padding-bottom: 30px;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid grey;
+}
+
+
+
+.atributes > div:nth-child(even){
+    & h2 {text-align: right;}
+    & > div {flex-direction: row-reverse;
+        align-items: flex-start;
+        margin-top: 30px;
+        & div{display: inline-block;width: 60%;margin-right: auto;margin-top: 0;}
+        & img {align-self: center;margin-top: 0;width: 35%;align-self: stretch;border-radius: 0;}
+    }
+}
+
+.atributes .magic, .atributes .healthy {
+    & h2 {text-align: left;}
+    & > div {flex-direction: row;
+        align-items: flex-start;
+        margin-top: 30px;
+        & div{display: inline-block;width: 60%;margin-left: auto;margin-top: 0;}
+        & img {align-self: center;margin-top: 0;width: 35%; align-self: stretch;border-radius: 0;}
+    }
+}}
+

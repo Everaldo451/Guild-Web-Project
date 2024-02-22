@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+   <title>The Storm Syndicate</title>
+
+   <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+   <link rel="stylesheet" href="{{url_for('static',filename='css/comum.css')}}">
+
+   <!--<link rel="stylesheet" href="../CSS/index.css">
+   <link rel="stylesheet" href="../CSS/comum.css">-->
+   <style>
+    header .container_image {
+      background-image: url({{url_for('static',filename="imagens/header.png")}})
+    }
+    @media screen and (max-width:550px){
+      header .container_image{
+        background-image: url({{url_for('static',filename="imagens/header-responsive.png")}})
+      }
+    }
+   </style>
+   
+</head>
+<body>
+  
+    <iframe id="headeriframe" style="display: none;" src="/menu.html"></iframe>
+  <div class="wraper">
+    <header>
+            <div class="container_image">
+
+                <div class="text"><h2>The Storm Syndicate</h2>
+                <p id="pstorm">{%if usuario%}Hi {{usuario.username}}, {%endif%}Welcome to the most powerful clan in Arcane Odyssey.</p></div>
+                
+            </div>
+
+    </header>
+
+    
+
+    <main>
+        
+            <div class="introduction">
+                <h1 style="text-align: center; margin: 0;">Get strong</h1>
+               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit autem nisi aliquam fugiat ad mollitia asperiores 
+                nostrum voluptas velit accusantium? Repudiandae nostrum aperiam, laboriosam qui nemo reiciendis. Eum, amet quae!</p>
+               <p>Officiis, impedit recusandae minima architecto obcaecati eos odit accusantium temporibus est laborum aliquam in amet 
+                corporis earum at dolorum nostrum totam illum dignissimos inventore? Perspiciatis, praesentium. Qui in magnam omnis.</p>
+               <p>Praesentium veniam illum vero? Nam at nostrum numquam? Veniam, iusto. Libero deserunt provident voluptates odit, corporis
+                 facilis pariatur ipsum animi, hic atque optio quibusdam soluta error saepe omnis, quod nulla!</p>
+               <p>In necessitatibus perspiciatis, voluptas optio deserunt quisquam recusandae sunt, excepturi neque exercitationem distinctio
+                 velit iusto ut minima dolor quas nam rem reiciendis aperiam! Eos non officia accusantium, rerum culpa veritatis.</p>
+               <p>Eveniet explicabo voluptas quisquam aspernatur expedita sed sequi corporis exercitationem. Labore laudantium maxime eum
+                 consectetur illum dignissimos perspiciatis ex animi, minus quas a quae, accusamus fugiat saepe officia voluptates pariatur.</p>
+               <p>Aut odit est corrupti dolores et voluptatibus earum quia autem fugiat, necessitatibus ex libero nulla nobis dolor assumenda
+                 totam pariatur. Architecto totam excepturi corrupti dicta adipisci iure asperiores molestias sit?</p>
+               <p>Nulla iste et ipsam facilis sit rerum nesciunt eaque, recusandae voluptates ex id nostrum culpa quo, magnam aliquid vel dicta
+                 inventore excepturi quisquam aspernatur iusto quidem quos? Ducimus, animi omnis.</p>
+               <p>Optio sint perspiciatis aliquid laudantium beatae similique! Aliquam doloribus consequuntur eum blanditiis rem animi,
+                 molestiae odio quia aperiam beatae, quis magnam, temporibus ratione quasi tenetur aut id commodi obcaecati in?</p>
+               <p>Culpa error ipsum repellat natus fugit dicta provident inventore qui voluptate architecto aliquam officia minus voluptatum
+                 consequatur blanditiis dolore ullam ipsam, voluptates consequuntur voluptatem dolorem eos! Adipisci ea quaerat amet.</p>
+               <p>Nemo alias placeat repellat velit incidunt totam, itaque, voluptatibus laudantium eius fuga aut consequatur debitis, ex 
+                cupiditate voluptate aliquid? Dolores deserunt dolore adipisci, eaque expedita blanditiis assumenda doloremque soluta? Provident.</p>
+            </div>
+
+            <hr style="margin: 40px 0 0 0;">
+            <h2 id="h2atrr">Clan Atributes</h2>
+
+            <div class="atributes">
+
+                <div class="magic">
+                  <h2>Magic</h2>
+
+                  <div class="magiflex">
+
+                    <img style="background-image: linear-gradient(cornflowerblue,cyan);">
+                    <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, iste esse? Nobis, 
+                      similique! Explicabo, facere modi nulla consequuntur, dolore veniam velit consectetur 
+                      accusantium placeat itaque dolor necessitatibus architecto soluta totam!</p>
+                    <p>Nisi accusantium obcaecati esse libero et neque animi ad nobis qui officia. Natus, 
+                      excepturi ea! Quaerat tempora, est dignissimos, magnam ex maiores saepe eveniet quisquam
+                       voluptatum cupiditate rerum. Autem, aspernatur.</p>
+                    <p>Corporis porro earum fugit quia dolores laboriosam deserunt nulla recusandae impedit.
+                       Quae, at blanditiis, dolore corporis asperiores magni aspernatur eveniet odio, non 
+                       suscipit exercitationem laudantium nesciunt quibusdam quo ipsam est.</p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="strength">
+                  <h2>Strength</h2>
+                  <div class="strenflex">
+                    <img style="background-image: linear-gradient(red,orange);">
+
+                    <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum sit consequuntur
+                       aut voluptates aliquam itaque voluptate amet saepe voluptatibus deserunt. Dolore,
+                        ab. Quis quisquam, unde nostrum cumque dolores autem maxime.</p>
+                    <p>Facere temporibus consectetur voluptatum corporis quia totam sunt, nam odio minus,
+                       officiis expedita officia distinctio minima praesentium ullam natus qui deleniti
+                        adipisci sit iste cum nobis numquam. Culpa, repellat! Libero.</p>
+                    <p>Unde dolore ipsum impedit non quibusdam incidunt, quis, vel provident placeat fugiat,
+                       laudantium corrupti amet! Fugit in ab eos vero aliquid ut adipisci sunt perferendis,
+                        harum veniam repudiandae quas pariatur.</p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="healthy">
+                  <h2>Healthy</h2>
+                  <div class="healflex">
+                    <img style="background-image: linear-gradient(lightseagreen,lightgreen);">
+
+                    <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, iste esse? Nobis, 
+                      similique! Explicabo, facere modi nulla consequuntur, dolore veniam velit consectetur 
+                      accusantium placeat itaque dolor necessitatibus architecto soluta totam!</p>
+                    <p>Nisi accusantium obcaecati esse libero et neque animi ad nobis qui officia. Natus, 
+                      excepturi ea! Quaerat tempora, est dignissimos, magnam ex maiores saepe eveniet quisquam
+                       voluptatum cupiditate rerum. Autem, aspernatur.</p>
+                    <p>Corporis porro earum fugit quia dolores laboriosam deserunt nulla recusandae impedit.
+                       Quae, at blanditiis, dolore corporis asperiores magni aspernatur eveniet odio, non 
+                       suscipit exercitationem laudantium nesciunt quibusdam quo ipsam est.</p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="weapons">
+                  <h2>Weapons</h2>
+                  <div class="weaflex">
+                    <img style="background-image: linear-gradient(goldenrod,khaki);">
+
+                    <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, iste esse? Nobis, 
+                      similique! Explicabo, facere modi nulla consequuntur, dolore veniam velit consectetur 
+                      accusantium placeat itaque dolor necessitatibus architecto soluta totam!</p>
+                    <p>Nisi accusantium obcaecati esse libero et neque animi ad nobis qui officia. Natus, 
+                      excepturi ea! Quaerat tempora, est dignissimos, magnam ex maiores saepe eveniet quisquam
+                       voluptatum cupiditate rerum. Autem, aspernatur.</p>
+                    <p>Corporis porro earum fugit quia dolores laboriosam deserunt nulla recusandae impedit.
+                       Quae, at blanditiis, dolore corporis asperiores magni aspernatur eveniet odio, non 
+                       suscipit exercitationem laudantium nesciunt quibusdam quo ipsam est.</p>
+                    </div>
+
+                  </div>
+                </div>
+            </div>
+        
+    </main>
+    <footer>
+    </footer>
+  </div>
+
+  
+    <!--Script-->
+    <script src="{{url_for('static',filename="js/script.js")}}"></script>
+
+</body>
+
+
+</html>
