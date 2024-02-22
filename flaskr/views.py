@@ -8,8 +8,10 @@ from .db import db, Cadastrou
 
 @bp.context_processor
 def processor():
-    
-    usuario = Cadastrou.query.filter_by(token = f'{session.get('token')}',id = session.get('user_id')).first()
+
+    usuario = Cadastrou.query.filter_by(token= f'{session.get('token')}',id = session.get('user_id')).first()
+    usur = Cadastrou.query.filter_by(token= f'{session.get('token')}',id = session.get('user_id'))
+    print(usuario,usur)
     return dict(usuario=usuario) if usuario else dict(usuario=None)
 
 @bp.app_errorhandler(404)

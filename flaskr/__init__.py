@@ -1,10 +1,11 @@
 
 from flask import Flask, current_app, make_response, Response
 from flask.globals import g
+import tomllib
 
 app = Flask(__name__,instance_relative_config=True)
 
-app.config.from_pyfile('configs.py')
+app.config.from_file('configs.toml',load=tomllib.load,text=False)
 
 from .db import db,Cadastrou
 with app.app_context():
