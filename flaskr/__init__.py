@@ -16,6 +16,6 @@ from . import views
 app.register_blueprint(views.bp)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
 #O SSL_CONTEXT=ADHOC faz o servidor rodar em HTTPS

@@ -7,24 +7,14 @@ bp = Blueprint('bp',__name__,url_prefix="/")
 
 from .db import db, Cadastrou
 
-def security(f):
-    @wraps(f)
-    def resposta(*args):
-        retorn = f()
-        dicti = {}
-        if len(retorn)>1 and type(retorn) == tuple:
-            for i in range(1,len(retorn)):
-                dicti[f'{i}'] = i
-            resp = make_response(render_template(f'{retorn}',dicti = dicti))
+@bp.after_app_request
+def resp(response):
+    print(response.mimetype)
+    if response.mimetype == "text/html":
+        response.headers["X-Frame-Options"] = "SAMEORIGIN"
+        response.headres["Content-Security-Policy"] = "connect src 'self'"
+    return response
 
-        else: resp = make_response(render_template(f'{retorn}'))
-
-        resp.headers['X-Frame-Options'] = "SAMEORIGIN"
-        resp.headers['Content-Security-Policy'] = "connect-src 'self'"
-
-        return resp
-        
-    return resposta
 
 @bp.context_processor
 def processor():
@@ -38,26 +28,22 @@ def not_found(e):
     if request.query_string and b'url=' in request.query_string:
         return redirect(f'/{request.args.get('url')}')
         
-    return render_template('error404.html')
+    return make_response(render_template('error404.html'))
     
 #Inicio
 @bp.route('/', methods=["GET","POST"])
-@security
+
 def home():
     #render = make_response(render_template('index.html'))
     #render.headers['X-Frame-Options'] = "SAMEORIGIN"
     #render.headers["Content-Security-Policy"] = "connect-src 'self'"
-    return "index.html"
+    return make_response(render_template('index.html'))
     
 #Fim do Inicio
 #Login Route
 
 @bp.route('/login', methods=["GET","POST"])
 def login():
-
-    render = make_response(render_template('login.html'))
-    render.headers['X-Frame-Options'] = "SAMEORIGIN"
-    render.headers["Content-Security-Policy"] = "connect-src 'self'"
 
     resp = make_response(redirect(url_for('bp.home')))
     
@@ -119,7 +105,7 @@ def login():
             else:
                 flash("Email ou senha incorretos")
     
-    return render
+    return make_response(render_template('login.html'))
 
 #Página pra fazer login
 
@@ -127,47 +113,31 @@ def login():
 @bp.route('/logout', methods=["GET"])
 def logout():
 
-    resp = make_response(redirect(url_for('bp.home')))
-
     if request:
         session.clear()
-        return resp
+        return make_response(redirect(url_for('bp.home')))
 
 #MENU
 @bp.route("/menu.html")
 def menu_load():
 
-    resp = make_response(render_template('menu.html'))
-    resp.headers['X-Frame-Options']="SAMEORIGIN"
-
-    return resp
+    return make_response(render_template('menu.html'))
 
 #Users
 @bp.route('/users/<user>')
+
 def perfil(user):
 
     useri = Cadastrou.query.filter_by(username = user).first()
-   
 
     if useri:
-        render = make_response(render_template('user.html',user=useri))
-        render.headers['X-Frame-Options'] = "SAMEORIGIN"
-        render.headers["Content-Security-Policy"] = "connect-src 'self'"
-        print(useri)
-        return render
+        return make_response(render_template('user.html',user=useri))
     else:  
-        render = make_response(render_template('user.html'))
-        render.headers['X-Frame-Options'] = "SAMEORIGIN"
-        render.headers["Content-Security-Policy"] = "connect-src 'self'"
-        return render
+        return make_response(render_template('user.html'))
 
 #User configs
 @bp.route('/configs',methods=["GET","POST"])
 def configs():
-
-    render = make_response(render_template('configs.html'))
-    render.headers['X-Frame-Options'] = "SAMEORIGIN"
-    render.headers["Content-Security-Policy"] = "connect-src 'self'"
 
     if request.method=="POST" and request.content_type == "application/x-www-form-urlencoded":
         user = Cadastrou.query.filter_by(token=session.get('token'),id=session.get('user_id')).first()
@@ -181,6 +151,4 @@ def configs():
         db.session.commit()
         return redirect(url_for('bp.home'))
 
-
-
-    return render
+    return make_response(render_template('configs.html'))
