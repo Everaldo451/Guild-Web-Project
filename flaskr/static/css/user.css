@@ -3,7 +3,7 @@
 .pag{
     margin: 20px 0;
     height: calc(100vh - 91px);
-    padding: 0 50px;
+    padding: 0 clamp(20px,calc(30vw - 250px),50px);
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
@@ -12,17 +12,19 @@
     & > div{
         background-color: white;
         box-shadow: 0 0 10px black;
-        border-radius: 30px;
+        border-radius: clamp(10px,calc(10px + 2vw),30px);
         & > * {
-            margin: 0 20px;
+            margin-top: 0;
+            margin-left: clamp(10px,calc(10px + 1vw),20px);
+            margin-right: clamp(10px,calc(10px + 1vw),20px);
         }
 
         & > *:first-child{
-            margin-top:20px
+            margin-top:clamp(10px,calc(10px + 1vw),20px)
         }
 
         & > *:last-child {
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px,calc(10px + 1vw),20px);
         }
     }
     & > div::-webkit-scrollbar{
@@ -41,9 +43,11 @@ img{
     display: flex;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 10px;
 }
 .user h2{
-    margin-left: 10px;
+    font-size: clamp(20px,calc(17px + 1vw),25px);
+    margin: 0 0 0 10px;
     text-wrap: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -86,7 +90,6 @@ img{
 /*MEDIA QUERIES*/
 @media screen and (max-width:900px) {
     .pag{
-        padding: 0 20px;
         grid-template-columns: repeat(1,1fr);
         grid-template-rows: repeat(3,1fr);
         & > div:last-child{display: none;}
