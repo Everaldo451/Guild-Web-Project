@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, session, make_response, request
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.datastructures import Authorization
 import secrets
 from functools import wraps
 
@@ -7,15 +8,21 @@ bp = Blueprint('bp',__name__,url_prefix="/")
 
 from .db import db, Cadastrou
 
+@bp.before_app_request
+def reque():
+    
+    if request.form and (str(request.url_rule) == "/login" or str(request.url_rule) == "/cadastro"):
+        request.authorization=Authorization('digest',request.form,secrets.token_hex(16))
+
+#AFTER REQUEST -> Acrescenta cabeçalhos
 @bp.after_app_request
 def resp(response):
-    print(response.mimetype)
     if response.mimetype == "text/html":
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
-        response.headres["Content-Security-Policy"] = "connect src 'self'"
+        response.headers["Content-Security-Policy"] = "connect src 'self'"
     return response
 
-
+#Acrescenta o usuário ao JINJA
 @bp.context_processor
 def processor():
 
@@ -23,10 +30,13 @@ def processor():
     
     return dict(usuario=usuario) if usuario else dict(usuario=None)
 
+
+#Erro de página não encontrada
 @bp.app_errorhandler(404)
 def not_found(e):
     if request.query_string and b'url=' in request.query_string:
         return redirect(f'/{request.args.get('url')}')
+    
         
     return make_response(render_template('error404.html'))
     
@@ -34,80 +44,66 @@ def not_found(e):
 @bp.route('/', methods=["GET","POST"])
 
 def home():
-    #render = make_response(render_template('index.html'))
-    #render.headers['X-Frame-Options'] = "SAMEORIGIN"
-    #render.headers["Content-Security-Policy"] = "connect-src 'self'"
+    
     return make_response(render_template('index.html'))
     
-#Fim do Inicio
-#Login Route
+#Página pra fazer login
 
-@bp.route('/login', methods=["GET","POST"])
-def login():
-
-    resp = make_response(redirect(url_for('bp.home')))
-    
-    if request.method == 'POST' and request.content_type == "application/x-www-form-urlencoded":
-        #Cadastro
-
-        if request.form.get('nome'):
-
-            print('tem')
-
-            email = Cadastrou.query.filter_by(email=f'{request.form['email']}').first()
-            username = Cadastrou.query.filter_by(email=f'{request.form['username']}').first()
-
-            if email:
-                flash('Email já cadastrado')
-            elif username:
-                flash('Username já cadastrado')
-            else:
-                while True:
-                    token = secrets.token_hex(16)
-                    token_verify = Cadastrou.query.filter_by(token = f'{token}').first()
-                    if token_verify:
-                        continue
-                    else:
-                        break
-
-                usuario = Cadastrou(nome = f'{request.form["nome"]}',sobrenome = f'{request.form['sobrenome']}',bio = f'{request.form['bio']}',email = f'{request.form['email']}',senha = f'{generate_password_hash(request.form['senha'])}',token = token,username = request.form['username'])
-                db.session.add(usuario)
-                db.session.commit()
-
-                session.clear()
-                session['user_id']=usuario.id
-                session['token']=token
-
-            return resp
-        
-        #Login AUTENTICATION
-        else:
-
-            usuario = Cadastrou.query.filter_by(email = f'{request.form['email']}').first()
-            if usuario and check_password_hash(usuario.senha,request.form['senha']):
-
-                while True:
-                    token = secrets.token_hex(16)
-                    token_verify = Cadastrou.query.filter_by(token = f'{token}').first()
-                    if token_verify:
-                        continue
-                    else:
-                        break
-
-                usuario.token = token
-                db.session.commit()
-
-                session.clear()
-                session['user_id'] = usuario.id
-                session['token'] = usuario.token
-                
-                return resp
-            else:
-                flash("Email ou senha incorretos")
+@bp.route('/auth', methods=["GET","POST"])
+def auth():
     
     return make_response(render_template('login.html'))
 
-#Página pra fazer login
+#LOGIN
+@bp.route('/login',methods=["POST"])
+def login():
+
+    if request.authorization:
+        form = request.authorization.parameters
+        
+
+    resp = make_response(redirect(url_for("bp.home")))
+
+    usuario = Cadastrou.query.filter_by(email = f'{form['email']}').first()
+    if usuario and check_password_hash(usuario.senha,form['senha']):
+        
+        token = secrets.token_hex(16)
+
+        usuario.token = token
+        db.session.commit()
+
+        session.clear()
+        session['user_id'] = usuario.id
+        session['token'] = usuario.token
+                
+        return resp
+    else:
+        flash("Email ou senha incorretos")
+
+
+#CADASTRO
+@bp.route('/cadastro',methods=["POST"])
+def cadastro():
+
+    email = Cadastrou.query.filter_by(email=f'{request.form['email']}').first()
+    username = Cadastrou.query.filter_by(email=f'{request.form['username']}').first()
+
+    if email:
+        flash('Email já cadastrado')
+    elif username:
+        flash('Username já cadastrado')
+    else:
+        token = secrets.token_hex(16)
+
+        usuario = Cadastrou(nome = f'{request.form["nome"]}',sobrenome = f'{request.form['sobrenome']}',bio = f'{request.form['bio']}',email = f'{request.form['email']}',senha = f'{generate_password_hash(request.form['senha'])}',token = token,username = request.form['username'])
+        db.session.add(usuario)
+        db.session.commit()
+
+        session.clear()
+        session['user_id']=usuario.id
+        session['token']=token
+
+        return make_response(redirect(url_for('bp.home')))
 
 #LOGOUT
 @bp.route('/logout', methods=["GET"])

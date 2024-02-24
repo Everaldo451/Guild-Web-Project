@@ -10,7 +10,6 @@ for (const x of forms) {
             }
             const parent = y.parentElement
             y.onfocus = function(){
-                console.log("opa")
                 parent.setAttribute('class','animinput1')
                 parent.onanimationstart = function() {console.log("começou a palhaçada")}
             }

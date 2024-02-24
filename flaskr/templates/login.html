@@ -39,7 +39,7 @@
             <div class="main">
                 {%if not usuario%}
                 <div class="login">
-                    <form id="login1" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
+                    <form id="login1" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off" action="/login">
                         
                         <legend>Login</legend>
                         <div id="input"><input type="email" placeholder="Digite seu email" name="email" required></div>
@@ -52,7 +52,7 @@
 
                 <div class="cadastro">
 
-                        <form method="POST" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                        <form method="POST" autocomplete="off" enctype="application/x-www-form-urlencoded" action="/cadastro">
                             
                             <legend>Cadastro</legend>
                             <div id="input"><input type='text' placeholder="Digite seu username" name="username" required></div>
