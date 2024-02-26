@@ -1,10 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
 
-class Cadastrou(db.Model):
+#Dados de usuário
+class Pessoas(db.Model):
     __table_args__ = {"schema":"dados_pessoais"}
-    __table_name__ = "cadastro"
 
     id = db.Column('ID',db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column('primeiro_nome',db.String(150))
@@ -12,7 +11,7 @@ class Cadastrou(db.Model):
     bio = db.Column('informacoes',db.String(150))
     email = db.Column('email',db.String(150),unique=True)
     senha = db.Column('senha',db.String(2000))
-    token = db.Column('token',db.String(150))
+    token = db.Column('token',db.String(150),unique=True)
     username = db.Column('username',db.String(150),unique=True)
 
     def __init__(self,nome,sobrenome,bio,email,senha,token,username):
@@ -24,6 +23,7 @@ class Cadastrou(db.Model):
         self.token=token
         self.username=username
 
+#Posts
 class Posts(db.Model):
     __table_args__ = {"schema":"dados_pessoais"}
 

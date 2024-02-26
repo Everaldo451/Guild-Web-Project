@@ -20,7 +20,7 @@ if (profile) {
     sair.addEventListener('click',(event)=>{
         event.preventDefault()
         let req = new XMLHttpRequest()
-        req.open('GET','/logout')
+        req.open('GET','/auth/logout')
         req.send("")
         req.onreadystatechange = function(){
             if (req.status==200 && req.readyState==4){window.location.assign(this.responseURL)}

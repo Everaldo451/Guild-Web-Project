@@ -1,21 +1,26 @@
 
-from flask import Flask, current_app, make_response, Response
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from flask.globals import g
 import tomllib
 
-app = Flask(__name__,instance_relative_config=True)
-
-app.config.from_file('configs.toml',load=tomllib.load,text=False)
-
-from .db import db,Cadastrou
-with app.app_context():
-    db.init_app(app)
-    db.create_all()
-
+from .models import db
 from . import views
-app.register_blueprint(views.bp)
+from . import auth
 
-if __name__ == "__main__":
-    app.run()
+def create_app():
+
+    app = Flask(__name__,instance_relative_config=True)
+
+    app.config.from_file('configs.toml',load=tomllib.load,text=False)
+
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+
+    app.register_blueprint(views.bp)
+    app.register_blueprint(auth.auth)
+
+    return app
 
 #O SSL_CONTEXT=ADHOC faz o servidor rodar em HTTPS
