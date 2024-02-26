@@ -32,7 +32,7 @@
             <div class="container_image">
 
                 <div class="text"><h2>The Storm Syndicate</h2>
-                <p id="pstorm">{%if usuario%}Hi {{usuario.username}}, {%endif%}Welcome to the most powerful clan in Arcane Odyssey.</p></div>
+                <p id="pstorm">{%if current_user.is_authenticated%}Hi {{current_user.username}}, {%endif%}Welcome to the most powerful clan in Arcane Odyssey.</p></div>
                 
             </div>
 

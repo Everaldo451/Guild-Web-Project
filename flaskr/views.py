@@ -13,15 +13,6 @@ def resp(response):
         response.headers["Content-Security-Policy"] = f"script-src 'self'"
     return response
 
-#Acrescenta o usuário ao JINJA
-@bp.context_processor
-def processor():
-
-    usuario = Pessoas.query.filter_by(token= f'{session.get('token')}',id = session.get('user_id')).first()
-    
-    return dict(usuario=usuario) if usuario else dict(usuario=None)
-
-
 #Erro de página não encontrada
 @bp.app_errorhandler(404)
 def not_found(e):

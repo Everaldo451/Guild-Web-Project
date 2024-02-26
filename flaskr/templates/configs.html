@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{%if usuario.username%}{{usuario.username}} - {%endif%}Configs</title>
+        <title>{{current_user.username}} - Configs</title>
         <link rel="stylesheet" href="{{url_for('static',filename="css/configs.css")}}">
     </head>
     <body>
-        {%if usuario%}
+        {%if current_user.is_authenticated%}
             <div class="configbox">
                 <div class="imgalterar">
                 <img src="{{url_for('static',filename="imagens/semimagem.png")}}">
@@ -16,10 +16,10 @@
                 </div>
 
                 <form method="POST" autocomplete="off" enctype="application/x-www-form-urlencoded">
-                <div class="input"><label name="Nome:" for="nome"><b>Nome:</b> {{usuario.nome}}</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="{{usuario.nome}}"></div>
-                <div class="input"><label name="Sobrenome:" for="sobrenome"><b>Sobrenome:</b> {{usuario.sobrenome}}</label><input type="text" id = "sobrenome" name="sobrenome" placeholder="Digite seu sobrenome" value="{{usuario.sobrenome}}"></div>
-                <div class="input"><label name="Username:" for="username"><b>Username:</b> {{usuario.username}}</label><input type="text" id="username" name="username" placeholder="Digite seu username" value="{{usuario.username}}"></div>
-                <div class="input" id="senhainput" style="display:none"><label for="sobrenome"><b>Senha:</b><span style="color:red;font-size:15px"> (Deixe em branco se não deseja alterar a senha)</span></label><input type="password" id = "ssenha" name="senha" placeholder="Digite sua senha"></div>
+                <div class="input"><label name="Nome:" for="nome"><b>Nome:</b> {{current_user.nome}}</label><input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="{{current_user.nome}}"></div>
+                <div class="input"><label name="Sobrenome:" for="sobrenome"><b>Sobrenome:</b> {{current_user.sobrenome}}</label><input type="text" id = "sobrenome" name="sobrenome" placeholder="Digite seu sobrenome" value="{{current_user.sobrenome}}"></div>
+                <div class="input"><label name="Username:" for="username"><b>Username:</b> {{current_user.username}}</label><input type="text" id="username" name="username" placeholder="Digite seu username" value="{{current_user.username}}"></div>
+                <div class="input" id="senhainput" style="display:none"><label for="ssenha"><b>Senha:</b><span style="color:red;font-size:15px"> (Deixe em branco se não deseja alterar a senha)</span></label><input type="password" id = "ssenha" name="senha" placeholder="Digite sua senha"></div>
                 <input type="submit" value="Enviar">
                 <input type="button" value="Cancelar">
                 </form>

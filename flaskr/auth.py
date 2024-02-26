@@ -2,14 +2,22 @@ from flask import Blueprint, request, render_template, make_response, flash, url
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.datastructures import Authorization
 import secrets
+from flask_login import LoginManager, login_user
+
+login_manager = LoginManager()
+login_manager.session_protection='strong'
+
 
 from .models import db,Pessoas
 
 auth = Blueprint('auth',__name__,url_prefix="/auth")
 
+@login_manager.user_loader
+def user_loader(id):
+    return Pessoas.query.filter_by(id=int(id)).first()
+
 @auth.before_app_request
 def reque():
-    
     if request.form and (str(request.url_rule) == "/auth/login" or str(request.url_rule) == "/auth/cadastro"):
         request.authorization=Authorization('digest',request.form,secrets.token_hex(16))
 #AUTH
@@ -46,9 +54,10 @@ def login():
         usuario.token = token
         db.session.commit()
 
-        session.clear()
-        session['user_id'] = usuario.id
-        session['token'] = usuario.token
+        login_user(usuario)
+        #session.clear()
+        #session['user_id'] = usuario.id
+        #session['token'] = usuario.token
                 
         return resp
     else:

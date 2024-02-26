@@ -8,12 +8,12 @@
             </div>
         </div>
                     
-        {%if usuario%}
+        {%if current_user.is_authenticated%}
             <div class='profile'>
                 <img src="{{url_for('static',filename='imagens/semimagem.png')}}">
                 <div class='options'>
                     <a href="/configs">Configurar</a>
-                    <a href="/users/{{usuario.username}}">Perfil</a>
+                    <a href="/users/{{current_user.username}}">Perfil</a>
                     <a href="/" id='sair' onclick="" >Sair</a>
                 </div>
             </div>

@@ -21,7 +21,7 @@
                         <img src="{{url_for('static',filename='imagens/semimagem.png')}}">
                         <h2>{{user.username}}</h2>
                     </div>
-                    {%if usuario and usuario.username == user.username%}
+                    {%if current_user and current_user.username == user.username%}
                     <button style="padding:10px">Postar</button>
                     <form method="POST">
                         <label for="title">Título</label>

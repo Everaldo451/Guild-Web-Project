@@ -21,6 +21,8 @@ def create_app():
     app.register_blueprint(views.bp)
     app.register_blueprint(auth.auth)
 
+    auth.login_manager.init_app(app)
+
     return app
 
 #O SSL_CONTEXT=ADHOC faz o servidor rodar em HTTPS

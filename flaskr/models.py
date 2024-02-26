@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
+from flask_login import UserMixin
 
 #Dados de usuário
-class Pessoas(db.Model):
+class Pessoas(UserMixin,db.Model):
     __table_args__ = {"schema":"dados_pessoais"}
 
     id = db.Column('ID',db.Integer, primary_key=True, autoincrement=True)
