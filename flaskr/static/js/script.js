@@ -2,29 +2,48 @@
 window.addEventListener("DOMContentLoaded", (even) => {
    console.log(document.cookie)
 })
-/*Menu*/
-let introduction = document.querySelector('introduction')
-let iframe = document.getElementById("headeriframe").contentWindow
-console.log('oi')
-    iframe.addEventListener('load',(even) => {
 
-        let header = iframe.document.body.querySelector('header')
-        var menu = document.querySelector('header')
+//Menu Load
+if (document.querySelector('nav')) {
+   
+var mypromise = new Promise(function(resolve,reject) {
+    
+    const http = new XMLHttpRequest()
+    http.open('GET','/menu.html')
 
-        menu.innerHTML += header.innerHTML
-        
-
-let profile = document.querySelector('.profile')
-if (profile) {
-    let sair = profile.querySelector('#sair')
-    sair.addEventListener('click',(event)=>{
-        event.preventDefault()
-        let req = new XMLHttpRequest()
-        req.open('GET','/auth/logout')
-        req.send("")
-        req.onreadystatechange = function(){
-            if (req.status==200 && req.readyState==4){window.location.assign(this.responseURL)}
+    http.onload = function() {
+        if (http.status == 200) {
+            resolve(http.response)
         }
+        else {reject("<h3>Not found</h3>")}
+    }
+
+    http.send()
+})
+mypromise.then(
+
+    function (value) {
+        const nav = document.querySelector('nav')
+        nav.innerHTML = value
+        //If Profile
+        if (nav.querySelector('.profile')) {
+            const profile = nav.querySelector('.profile')
+            let sair = profile.querySelector('#sair')
+            sair.addEventListener('click',(event)=>{
+                event.preventDefault()
+                let req = new XMLHttpRequest()
+                req.open('GET','/auth/logout')
+                req.send()
+                req.onreadystatechange = function(){
+                    if (req.status==200 && req.readyState==4){window.location.assign(this.responseURL)}
+                }
+            })
+        }
+        //Profile end
+    },
+
+    function (error) {
+        document.querySelector('nav').innerHTML = error
     })
 }
 
@@ -43,7 +62,7 @@ if (document.location.pathname == "/") {
             i++
 },50)}
 
-})
+//})
 //Login Page Cookies
 //coname=1
 function getCookie(coname) {

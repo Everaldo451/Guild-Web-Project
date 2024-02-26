@@ -10,7 +10,7 @@ from .models import db, Pessoas
 def resp(response):
     if response.mimetype == "text/html":
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
-        response.headers["Content-Security-Policy"] = "connect src 'self'"
+        response.headers["Content-Security-Policy"] = f"script-src 'self'"
     return response
 
 #Acrescenta o usuário ao JINJA

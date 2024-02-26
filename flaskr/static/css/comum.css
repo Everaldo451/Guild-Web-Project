@@ -41,7 +41,6 @@ nav {
 .profile::after{
     content: ">";
     color:white;
-    display: inline-block;
     margin-left: 5px;
     font-size: 25px;
     font-family:'Courier New', Courier, monospace;
@@ -52,13 +51,30 @@ nav {
     transition: transform 0.5s;
 }
 
+.profile:hover::before{transform: rotate(180deg);}
+
+.profile::before{
+    content: ">";
+    color:white;
+    margin-right: 5px;
+    font-size: 25px;
+    font-family:'Courier New', Courier, monospace;
+    display: none;
+    writing-mode:vertical-rl;
+    margin-bottom: auto;
+    margin-top: auto;
+    transition: transform 0.5s;
+}
+
 .profile{
     margin-left:auto;
     position: relative;
     display: flex;
+    flex-direction: row;
     & img{
         border-radius: 50%;
         margin-right: 0;
+        display: block;
     }
     & .options {
         display: none;
@@ -145,14 +161,24 @@ footer {
     .links_menu a:hover{background-color: rgb(153, 194, 194);}
     
     
-    .nav img{
+    .nav img#logo{
         position: absolute;
         left: 50%;
         transform: translate(-50%,0);
         height: 100%;
         width: auto;
         margin: 0;
-    }}
+
+    }
+    /*PROFILE*/
+        
+    .profile::before{display: inline-block;}
+
+    .profile::after{display: none}
+
+}
+
+
 
     @media screen and (max-width:700px){
 
