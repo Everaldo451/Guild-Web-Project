@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash
 from flask_login import login_required
 from sqlalchemy import desc
 import re
+import base64
 
 bp = Blueprint('bp',__name__,url_prefix="/")
 
@@ -47,21 +48,21 @@ def perfil(user):
 
         usuario = Pessoas.query.filter_by(id=int(session.get('_user_id'))).first()
         mydesc = f'<t>{request.form.get('title')}<t><e>{request.form.get('desc')}'
-        if not request.form.get('content'):
-            post = Posts(user=usuario.id,desc=mydesc,conte=None)
-        else: post = Posts(user=usuario.id,desc=mydesc,conte=request.form.get('content'))
+        if not request.files['content']:
+            print('oi')
+            post = Posts(user=usuario.id,desc=mydesc,conte=None,filename=None)
+        else:
+            file = request.files['content'].stream
+            post = Posts(user=usuario.id,desc=mydesc,conte=file.read(),filename=request.files['content'].filename)
         db.session.add(post)
         db.session.commit()
         return make_response(redirect(f'{usuario.username}'))
 
     useri = Pessoas.query.filter_by(username = user).first()
-    posts = Posts.query.filter_by(user=useri.id).order_by(desc(Posts.id))
-    for p in posts:
-        print(p.desc)
-        text = re.search('<e>.+',p.desc)
-        print(text.group())
 
     if useri:
+        print(str(base64.b64encode(b'oi')))
+        posts = Posts.query.filter_by(user=useri.id).order_by(desc(Posts.id))
         return make_response(render_template('user.html',user=useri,posts=posts,re=re,len=len))
     else:  
         return make_response(render_template('user.html'))

@@ -23,13 +23,13 @@
                     </div>
                     {%if current_user and current_user.username == user.username%}
                     <button style="padding:10px">Postar</button>
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                         <label for="title">Título</label>
                         <input type="text" name="title" id="title" style="margin-bottom:10px">
                         <label for="desc">Descrição</label>
                         <textarea name='desc' id="desc" style="margin-bottom:10px"></textarea>
                         <div class="arquivos"><label for="content">Enviar Arquivos</label></div>
-                        <input type="file" value="Escolher" name="content" id="content" accept="image/*,video/*" style="display:none" multiple> 
+                        <input type="file" value="Escolher" name="content" id="content" style="display:none"> 
                         <input type="submit" value="Enviar">
                         <input type="button" value="Cancelar">
                     </form>
@@ -44,6 +44,11 @@
                                 <div>
                                     <h3>{{title[3:len(text)-3]}}</h3>
                                     <p>{{desc[3:]}}</p>
+                                    {%if p.conte%}
+                                        {%with type = re.search('\.\w+',p.filename).group()[1:]%}
+                                        <img src="data:img/{{type}},base64,{{p.conte}}" style="max-width:100%">
+                                        {%endwith%}
+                                    {%endif%}
                                     <h2>From <a href="{{user.username}}" style="color:purple">{{user.username}}</a></h2>
                                 </div>
                                 {%endwith%}
@@ -58,5 +63,6 @@
             {%endif%}
         </div>
         <script src="{{url_for('static',filename="js/script.js")}}"></script>
+        <script src="{{url_for('static',filename='js/users.js')}}"></script>
     </body>    
 </html>

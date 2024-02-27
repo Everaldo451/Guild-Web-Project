@@ -32,9 +32,11 @@ class Posts(db.Model):
     user = db.Column('user_id',db.Integer,nullable=False)
     desc = db.Column('descripition',db.String(1000),nullable=False)
     conte = db.Column('content',db.LargeBinary)
+    filename = db.Column('filename',db.String(100))
 
-    def __init__(self,user,desc,conte):
+    def __init__(self,user,desc,conte,filename):
         self.desc=desc
         self.user=user
         self.conte=conte
+        self.filename = filename
         

@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.globals import g
 import tomllib
 
-from .models import db
+from .models import db,Posts
 from . import views
 from . import auth
 
