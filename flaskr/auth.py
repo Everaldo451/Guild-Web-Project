@@ -2,11 +2,13 @@ from flask import Blueprint, request, render_template, make_response, flash, url
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.datastructures import Authorization
 import secrets
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user,logout_user
+from flask import json
+import base64
+import hashlib
 
 login_manager = LoginManager()
 login_manager.session_protection='strong'
-
 
 from .models import db,Pessoas
 
@@ -15,6 +17,10 @@ auth = Blueprint('auth',__name__,url_prefix="/auth")
 @login_manager.user_loader
 def user_loader(id):
     return Pessoas.query.filter_by(id=int(id)).first()
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return "não pode não"
 
 @auth.before_app_request
 def reque():
@@ -30,10 +36,9 @@ def authentication():
 @auth.route('/login',methods=["POST"])
 def login():
 
-    print('oi')
-
     if request.authorization:
         form = request.authorization.parameters
+        #print(base64.b64encode(str.encode(json.dumps(request.form))))
     else:
         flash("No authorization")
         return make_response(redirect(url_for('auth.authentication')))
@@ -96,9 +101,10 @@ def cadastro():
         db.session.add(usuario)
         db.session.commit()
 
-        session.clear()
-        session['user_id']=usuario.id
-        session['token']=token
+        login_user(usuario)
+        #session.clear()
+        #session['user_id']=usuario.id
+        #session['token']=token
 
         return make_response(redirect(url_for('bp.home')))
 
@@ -107,7 +113,7 @@ def cadastro():
 def logout():
 
     if request:
-        session.clear()
+        logout_user()
         return make_response(redirect(url_for('bp.home')))
 
 

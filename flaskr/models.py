@@ -33,8 +33,7 @@ class Posts(db.Model):
     desc = db.Column('descripition',db.String(1000),nullable=False)
     conte = db.Column('content',db.LargeBinary)
 
-    def __init__(self,id,user,desc,conte):
-        self.id=id
+    def __init__(self,user,desc,conte):
         self.desc=desc
         self.user=user
         self.conte=conte

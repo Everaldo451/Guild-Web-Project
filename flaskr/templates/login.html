@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{url_for('static',filename='css/comum.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
 
-    {%if usuario%}
+    {%if current_user.is_authenticated%}
     <style>
         .main{
             height: 500px;
@@ -38,7 +38,7 @@
         
         <main>
             <div class="main">
-                {%if not usuario%}
+                {%if not current_user.is_authenticated%}
                 <div class="login">
                     <form id="login1" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off" action="/auth/login">
                         

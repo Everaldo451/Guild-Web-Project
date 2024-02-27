@@ -38,12 +38,17 @@
                     {%endif%}
                 </div>
                 <div class="posts">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    {%if posts%}
+                        {%for p in posts%}
+                                {%with title = re.match('<t>.+<t>',p.desc).group(), desc = re.search('<e>.+',p.desc).group()%}
+                                <div>
+                                    <h3>{{title[3:len(text)-3]}}</h3>
+                                    <p>{{desc[3:]}}</p>
+                                    <h2>From <a href="{{user.username}}" style="color:purple">{{user.username}}</a></h2>
+                                </div>
+                                {%endwith%}
+                        {% endfor %}
+                    {%endif%}
                 </div>
                 <div>
                 </div>        
