@@ -37,7 +37,7 @@
 
 /*PESSOAL*/
 
-img{
+.user img{
     border-radius: 50%;
     width: 50px;
     aspect-ratio: 1/1;
@@ -47,6 +47,7 @@ img{
     align-items: center;
     overflow: hidden;
     margin-bottom: 10px;
+    justify-content: center;
 }
 .user h2{
     --min:20px;
@@ -56,6 +57,18 @@ img{
     text-wrap: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.seguidores{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    & h3{
+        --min:13px;
+        --max:15px;
+        --sum:2px;
+        margin: 0 10px 15px 10px;
+    }
 }
 
 /*POSTS*/
@@ -68,22 +81,24 @@ img{
         background-color: rgb(204, 204, 204);
         border-radius: 10px;
         min-height: 200px;
-        margin: 20px 20px 0 20px;
+        margin-top:20px;
         padding: 15px;
         display: flex;
         flex-direction: column;
         & h3{
             text-align: left;
-            margin:0
+            margin:0;
         }
-        & p{margin-top: 5px;}
+        & p{margin:5px 0}
         & h2{margin: 0;margin-top: auto;}
+        & img{margin-bottom: 10px;}
     }
 }
+
 .informs{overflow: auto;}
-.informs form > * {
-    margin-top: 10px;
-}
+/*FORMULARIO*/
+.informs form{margin-top: 10px;display: none;}
+.informs form > * {margin-top: 10px;}
 .informs textarea{
     resize: none;       
     width: 100%;
@@ -97,16 +112,38 @@ img{
 }
 .informs label[for="content"]{
     background-color: rgb(211, 194, 211);
+    transition: background-color 0.5s;
     --min:12px;
     --max:17px;
     --sum:12px;
     padding: 10px;
 }
+.informs label[for="content"]:hover{
+    background-color: rgb(158, 142, 158);
+    cursor: pointer;
+}
 .informs form input{
-    
+    outline: none;
     display: block;
+    border: none;
     width: 100%;
     padding: 10px;
+    background-color: rgb(199, 199, 199);
+    transition: background-color 0.5s;
+}
+#postar{
+    background-color: rgb(199, 199, 199);
+    transition: background-color 0.5s;
+    padding: 5px;
+    margin-left: auto;
+    border: none;
+}
+.informs form input:focus{
+    background-color: gray;
+}
+.informs form input[type="button"]:hover,.informs form input[type="submit"]:hover,#postar:hover{
+    background-color: gray;
+    cursor: pointer;
 }
 .informs form label{
     text-align: center;
@@ -117,14 +154,13 @@ img{
 @media screen and (max-width:900px) {
     .pag{
         grid-template-columns: repeat(1,1fr);
-        grid-template-rows: repeat(3,1fr);
+        grid-template-rows: repeat(1,auto) repeat(1,1fr);
         & > div:last-child{display: none;}
     }
-
     .posts{
         grid-column-start: 1;
         grid-column-end: 2;
         grid-row-start: 2;
-        grid-row-end: 4;
+        grid-row-end: 3;
     }
 }

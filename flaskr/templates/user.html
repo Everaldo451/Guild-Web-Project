@@ -16,53 +16,62 @@
             </header>
             {%if user%}
             <div class="pag">
+                <!--USER INFORMATIONS-->
                 <div class="informs">
                     <div class="user">
                         <img src="{{url_for('static',filename='imagens/semimagem.png')}}">
                         <h2>{{user.username}}</h2>
                     </div>
+                    <div class="seguidores">
+                        <h3>Seguidores:</h3>
+                        <h3>Seguindo:</h3>
+                    </div>
+                    <div class="bio">
+                        <p style="margin-top:0;margin-bottom:10px">{{user.bio}}</p>
+                    </div>  
                     {%if current_user and current_user.username == user.username%}
-                    <button style="padding:10px">Postar</button>
+                    <div style="display:flex;margin-bottom:10px"><button id="postar">Postar</button></div>
                     <form method="POST" enctype="multipart/form-data">
-                        <label for="title">Título</label>
-                        <input type="text" name="title" id="title" style="margin-bottom:10px">
-                        <label for="desc">Descrição</label>
-                        <textarea name='desc' id="desc" style="margin-bottom:10px"></textarea>
+                        <label for="title">Título<span style="color:red"> (min: 8 letras)</span></label>
+                        <input type="text" name="title" id="title" style="margin-bottom:10px" pattern=".{8,}" required>
+                        <label for="desc">Descrição<span style="color:red"> (min: 4 letras)</span></label>
+                        <textarea name='desc' id="desc" style="margin-bottom:10px" pattern=".{4,}" required></textarea>
                         <div class="arquivos"><label for="content">Enviar Arquivos</label></div>
-                        <input type="file" value="Escolher" name="content" id="content" style="display:none"> 
+                        <input type="file" value="Escolher" name="content" id="content" style="display:none" accept="image/*"> 
                         <input type="submit" value="Enviar">
                         <input type="button" value="Cancelar">
                     </form>
-                    {%else%}
-                    <h1>tchau</h1>
                     {%endif%}
                 </div>
+                <!--USER POSTS-->
                 <div class="posts">
                     {%if posts%}
                         {%for p in posts%}
-                                {%with title = re.match('<t>.+<t>',p.desc).group(), desc = re.search('<e>.+',p.desc).group()%}
                                 <div>
+                                    {%with title = re.match('<t>.+<t>',p.desc).group(), desc = re.search('<e>.+',p.desc).group()%}
                                     <h3>{{title[3:len(text)-3]}}</h3>
                                     <p>{{desc[3:]}}</p>
+                                    {%endwith%}
                                     {%if p.conte%}
-                                        {%with type = re.search('\.\w+',p.filename).group()[1:]%}
-                                        <img src="data:img/{{type}},base64,{{p.conte}}" style="max-width:100%">
+                                        {%with type = re.search('\.\w+',p.filename).group()[1:], base = str(base64.b64encode(p.conte))[2:-1]%}
+                                        <img src="data:img/{{type}};base64,{{base}}" style="max-width:100%">
                                         {%endwith%}
                                     {%endif%}
                                     <h2>From <a href="{{user.username}}" style="color:purple">{{user.username}}</a></h2>
                                 </div>
-                                {%endwith%}
                         {% endfor %}
                     {%endif%}
                 </div>
+
                 <div>
                 </div>        
             </div>
+            <!--SE USUARIO NAO EXISTE-->
             {%else%}
             <h1>Sem usuario
             {%endif%}
         </div>
         <script src="{{url_for('static',filename="js/script.js")}}"></script>
-        <script src="{{url_for('static',filename='js/users.js')}}"></script>
+        <script src="{{url_for('static',filename="js/users.js")}}"></script>
     </body>    
 </html>

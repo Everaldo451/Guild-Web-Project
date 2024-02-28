@@ -62,8 +62,9 @@ def perfil(user):
 
     if useri:
         print(str(base64.b64encode(b'oi')))
-        posts = Posts.query.filter_by(user=useri.id).order_by(desc(Posts.id))
-        return make_response(render_template('user.html',user=useri,posts=posts,re=re,len=len))
+        posts = Posts.query.filter_by(user=useri.id).order_by(desc(Posts.id)).limit(3).all()
+        print(posts)
+        return make_response(render_template('user.html',user=useri,posts=posts,re=re,len=len,str=str,base64=base64))
     else:  
         return make_response(render_template('user.html'))
 
