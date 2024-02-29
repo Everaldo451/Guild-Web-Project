@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.globals import g
 import tomllib
 
-from .models.models import db,Posts
+from .models.models import db,ma
 from .routes import views,auth,gposts
 
 def create_app():
@@ -13,6 +13,7 @@ def create_app():
 
     app.config.from_file('configs.toml',load=tomllib.load,text=False)
 
+    ma.init_app(app)
     db.init_app(app)
     with app.app_context():
         db.create_all()

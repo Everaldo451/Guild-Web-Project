@@ -53,7 +53,7 @@
                                     <p>{{desc[3:]}}</p>
                                     {%endwith%}
                                     {%if p.conte%}
-                                        {%with type = re.search('\.\w+',p.filename).group()[1:], base = str(base64.b64encode(p.conte))[2:-1]%}
+                                        {%with type = re.search('\.\w+',p.filename).group()[1:], base = str(p.conte)[2:-1]%}
                                         <div class="container"><img src="data:img/{{type}};base64,{{base}}" style="max-width:100%"></div>
                                         {%endwith%}
                                     {%endif%}

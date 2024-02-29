@@ -53,7 +53,7 @@ def perfil(user):
             post = Posts(user=usuario.id,desc=mydesc,conte=None,filename=None)
         else:
             file = request.files['content'].stream
-            post = Posts(user=usuario.id,desc=mydesc,conte=file.read(),filename=request.files['content'].filename)
+            post = Posts(user=usuario.id,desc=mydesc,conte=base64.b64encode(file.read()),filename=request.files['content'].filename)
         db.session.add(post)
         db.session.commit()
         return make_response(redirect(f'{usuario.username}'))
@@ -61,10 +61,8 @@ def perfil(user):
     useri = Pessoas.query.filter_by(username = user).first()
 
     if useri:
-        print(str(base64.b64encode(b'oi')))
         posts = Posts.query.filter_by(user=useri.id).order_by(desc(Posts.id)).limit(3).all()
-        print(posts)
-        return make_response(render_template('user.html',user=useri,posts=posts,re=re,len=len,str=str,base64=base64))
+        return make_response(render_template('user.html',user=useri,posts=posts,re=re,len=len,str=str))
     else:  
         return make_response(render_template('user.html'))
 
