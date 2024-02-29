@@ -75,12 +75,12 @@
 
 .posts {
     grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-end: 5;
     overflow: auto;
     & > div{
         background-color: rgb(204, 204, 204);
         border-radius: 10px;
-        min-height: 200px;
+        min-height: 35%;
         margin-top:20px;
         padding: 15px;
         display: flex;
@@ -91,7 +91,14 @@
         }
         & p{margin:5px 0}
         & h2{margin: 0;margin-top: auto;}
-        & img{margin-bottom: 10px;}
+        & .container{
+            display: flex;
+            background-color: rgb(36, 36, 36);
+            justify-content: center;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            & img{margin-bottom: 0;height: 200px;width: auto;}
+        }
     }
 }
 
@@ -155,7 +162,6 @@
     .pag{
         grid-template-columns: repeat(1,1fr);
         grid-template-rows: repeat(1,auto) repeat(1,1fr);
-        & > div:last-child{display: none;}
     }
     .posts{
         grid-column-start: 1;

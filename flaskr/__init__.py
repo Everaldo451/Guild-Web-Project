@@ -4,9 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.globals import g
 import tomllib
 
-from .models import db,Posts
-from . import views
-from . import auth
+from .models.models import db,Posts
+from .routes import views,auth,gposts
 
 def create_app():
 
@@ -20,6 +19,7 @@ def create_app():
 
     app.register_blueprint(views.bp)
     app.register_blueprint(auth.auth)
+    app.register_blueprint(gposts.gp)
 
     auth.login_manager.init_app(app)
 

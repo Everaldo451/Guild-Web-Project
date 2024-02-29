@@ -7,7 +7,7 @@ import base64
 
 bp = Blueprint('bp',__name__,url_prefix="/")
 
-from .models import db, Pessoas, Posts
+from ..models.models import db, Pessoas, Posts
 
 #AFTER REQUEST -> Acrescenta cabeçalhos
 @bp.after_app_request

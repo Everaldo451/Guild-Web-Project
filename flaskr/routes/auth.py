@@ -10,7 +10,7 @@ import hashlib
 login_manager = LoginManager()
 login_manager.session_protection='strong'
 
-from .models import db,Pessoas
+from ..models.models import db,Pessoas
 
 auth = Blueprint('auth',__name__,url_prefix="/auth")
 
