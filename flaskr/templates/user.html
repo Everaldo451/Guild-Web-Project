@@ -54,7 +54,7 @@
                                     {%endwith%}
                                     {%if p.conte%}
                                         {%with type = re.search('\.\w+',p.filename).group()[1:], base = str(p.conte)[2:-1]%}
-                                        <div class="container"><img src="data:img/{{type}};base64,{{base}}" style="max-width:100%"></div>
+                                        <div class="container" style = "background-image: url(data:img/{{type}};base64,{{base}})"><!--<img src="data:img/{{type}};base64,{{base}}" style="max-width:100%">--></div>
                                         {%endwith%}
                                     {%endif%}
                                     <h2>From <a href="{{user.username}}" style="color:purple">{{user.username}}</a></h2>

@@ -16,8 +16,11 @@ def getposts():
         poste = Posts.query.filter_by(user=user.id).order_by(desc(Posts.id)).offset(int(f)).limit(3).all()
         if len(poste) == 1:
             poste = Posts.query.filter_by(user=user.id).order_by(desc(Posts.id)).offset(int(f)).first()
-            return jsonify({"post" : post.dump(poste) , "username": request.args.get('username')})
+            return jsonify({"post" : post.dump(poste) , "username": request.args.get('username'), "message" : "1"})
+        elif len(poste) > 1:
+            return jsonify({"post" : posts.dump(poste), "username" : request.args.get('username'), "message" : "2"})
+
         elif len(poste) == 0:
-            return jsonify({"message":"notdo"})
+            return jsonify({"message":"0"})
     
     else: return make_response(redirect(url_for('bp.home')))

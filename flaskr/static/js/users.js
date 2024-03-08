@@ -1,3 +1,5 @@
+//FUNÇÂO PRA POSTAR
+
 const postar = document.querySelector('#postar')
 if (postar) {
     const inform = document.querySelector('.informs')
@@ -15,12 +17,43 @@ if (postar) {
     })
 }
 
+//FUNÇÂO PRA CARREGAR POSTS DO BANCO DE DADOS
 const posts = document.querySelector('.posts')
 const arr = posts.querySelectorAll('div.post')
 
+function createposts(parsed,username) {
+    
+    if (parsed["post"]){parsed = parsed["post"]}
+    let title = parsed['desc'].slice(3,parsed['desc'].lastIndexOf('<t>'))
+    let desc = parsed['desc'].slice(parsed['desc'].indexOf('<e>')+3)
+    let type = parsed['filename'].slice(parsed['filename'].lastIndexOf('.')+1)
+    console.log(title,desc,type,parsed['conte'])
+    const newpost = document.createElement('div')
+    newpost.classList.add('post')
+    const [h3,h3content] = [document.createElement('h3'),document.createTextNode(`${title}`)]
+    h3.appendChild(h3content)
+    newpost.appendChild(h3)
+    const [p,pcontent] = [document.createElement('p'),document.createTextNode(`${desc}`)]
+    p.appendChild(pcontent)
+    newpost.appendChild(p)
+    const container = document.createElement('div')
+    //const [container,img] = [document.createElement('div'),document.createElement('img')]
+    container.classList.add('container')
+    //img.setAttribute('src',`data:img/${type};base64,${parsed['conte']}`)
+    //container.appendChild(img)
+    container.style.backgroundImage = `url(data:img/${type};base64,${parsed['conte']})`
+    newpost.appendChild(container)
+    const [h2,h2content] = [document.createElement('h2'),document.createTextNode(`From: ${username}`)]
+    h2.appendChild(h2content)
+    newpost.appendChild(h2)
+    posts.appendChild(newpost)
+}
+
 if (arr && arr.length==3) {
     var i=1
-    posts.addEventListener('scroll',(even)=>{
+    posts.addEventListener('scroll',listener)
+
+    function listener() {
 
         console.log(posts.scrollHeight,posts.scrollTop,posts.clientHeight)
         if (posts.scrollTop == posts.scrollHeight - posts.clientHeight){
@@ -38,34 +71,29 @@ if (arr && arr.length==3) {
             promise.then(
                 function(value){
                     var parsed = JSON.parse(value)
-                    console.log(parsed)
-                    let title = parsed['post']['desc'].slice(3,parsed['post']['desc'].lastIndexOf('<t>'))
-                    let desc = parsed['post']['desc'].slice(parsed['post']['desc'].indexOf('<e>')+3)
-                    let type = parsed['post']['filename'].slice(parsed['post']['filename'].lastIndexOf('.')+1)
-                    let imgconte = parsed['post']['conte']
-                    console.log(title,desc,type,parsed['post']['conte'])
-                    const newpost = document.createElement('div')
-                    newpost.classList.add('post')
-                    const [h3,h3content] = [document.createElement('h3'),document.createTextNode(`${title}`)]
-                    h3.appendChild(h3content)
-                    newpost.appendChild(h3)
-                    const [p,pcontent] = [document.createElement('p'),document.createTextNode(`${desc}`)]
-                    p.appendChild(pcontent)
-                    newpost.appendChild(p)
-                    const [container,img] = [document.createElement('div'),document.createElement('img')]
-                    container.classList.add('container')
-                    img.setAttribute('src',`data:img/${type};base64,${parsed['post']['conte']}`)
-                    container.appendChild(img)
-                    newpost.appendChild(container)
-                    const [h2,h2content] = [document.createElement('h2'),document.createTextNode(`From: ${parsed['username']}`)]
-                    h2.appendChild(h2content)
-                    newpost.appendChild(h2)
-                    posts.appendChild(newpost)
-
-
+                    switch (Number(parsed["message"])) {
+                        case 0: 
+                            posts.removeEventListener('scroll',listener)
+                            console.log('oi')
+                            break
+                        ;
+                        case 1:
+                            setTimeout(createposts(parsed,parsed["username"]),1000)
+                            i++
+                            break
+                        ;
+                        case 2:
+                            setTimeout(() =>{
+                            for (const post of parsed["post"]) {
+                                createposts(post,parsed["username"])
+                            }},1000)
+                            i++
+                            break
+                        ;
+                    }
                 },
                 function(error){console.log(error)}
             )
         }
-    })
+    }
 }
