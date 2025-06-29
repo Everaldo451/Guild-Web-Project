@@ -1,12 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
 from flask_login import UserMixin
 from flask_marshmallow import Marshmallow
+db = SQLAlchemy()
 ma = Marshmallow()
 
 ###  Dados de usuário
 class Pessoas(UserMixin,db.Model):
-    __table_args__ = {"schema":"dados_pessoais"}
 
     id = db.Column('ID',db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column('primeiro_nome',db.String(150))
@@ -28,14 +27,14 @@ class Pessoas(UserMixin,db.Model):
 
 #Usuario jsonify
 
-class PessoasMa(ma.Schema):
+class PessoasMa(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ('id','nome','sobrenome','bio','email','senha','token','username')
+        model = Pessoas
+        load_instance = True
 
 pessoas_schem = PessoasMa()
 ###  Posts
 class Posts(db.Model):
-    __table_args__ = {"schema":"dados_pessoais"}
 
     id = db.Column('ID',db.Integer, primary_key=True, autoincrement = True)
     user = db.Column('user_id',db.Integer,nullable=False)
@@ -50,9 +49,10 @@ class Posts(db.Model):
         self.filename = filename
 
 #Posts jsonify   
-class PostMa(ma.Schema):
+class PostMa(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ('id','user','desc','conte','filename')
+        model = Posts
+        load_instance = True
 
 post = PostMa()
 posts = PostMa(many = True)

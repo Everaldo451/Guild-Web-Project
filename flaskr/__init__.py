@@ -1,17 +1,15 @@
-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask.globals import g
-import tomllib
+from dotenv import load_dotenv
 
 from .models.models import db,ma
 from .routes import views,auth,gposts
 
 def create_app():
+    load_dotenv()
+    app = Flask(__name__)
 
-    app = Flask(__name__,instance_relative_config=True)
-
-    app.config.from_file('configs.toml',load=tomllib.load,text=False)
+    from .configs.base import Config
+    app.config.from_object(Config)
 
     ma.init_app(app)
     db.init_app(app)
@@ -25,5 +23,3 @@ def create_app():
     auth.login_manager.init_app(app)
 
     return app
-
-#O SSL_CONTEXT=ADHOC faz o servidor rodar em HTTPS
